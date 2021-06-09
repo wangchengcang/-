@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../bower_components/swiper/dist/css/swiper.min.css">
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    .clearfix:after,
+    .clearfix:before {
+        content: '';
+        display: table;
+    }
+
+    .clearfix:after {
+        clear: both;
+    }
+
+    .photo {
+        background-color: #000;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .img {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        /* 所有的inline或inline-block元素 是受到text-align控制的*/
+        position: relative;
+    }
+
+    .img:after {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+
+    .img-box {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .img-box div {
+        width: 100%;
+        height: 100%;
+    }
+
+    .img img {
+        max-height: 100%;
+        max-width: 100%;
+        /* opacity: 0; */
+        vertical-align: middle;
+    }
+
+    .prev,
+    .next {
+        position: absolute;
+        top: 50%;
+        height: 30px;
+        width: 30px;
+        margin-top: -25px;
+        border-left: solid 2px #FFF;
+        border-top: solid 2px #FFF;
+        z-index: 10;
+    }
+
+    .prev {
+        left: 20px;
+        transform: rotate(-45deg);
+    }
+
+    .next {
+        right: 20px;
+        transform: rotate(135deg);
+    }
+
+    .smlist {
+        position: relative;
+        height: 80px;
+    }
+
+    .list {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 80px;
+    }
+
+    .list li {
+        float: left;
+        height: 80px;
+        width: 120px;
+        background-color: pink;
+        border: solid 2px #000;
+        box-sizing: border-box;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: .5;
+        margin-right: 5px;
+    }
+    .list .swiper-slide-thumb-active{
+    	border-color: #FFF;
+        opacity: 1;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="photo clearfix">
+        <div class="img swiper-container">
+            <div class="img-box swiper-wrapper">
+                <!-- <div><img src="" alt=""></div> -->
+            </div>
+            <a href="javascript:;" class="prev"></a>
+            <a href="javascript:;" class="next"></a>
+        </div>
+        <div class="smlist swiper-container">
+            <ul class="list swiper-wrapper"></ul>
+        </div>
+    </div>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/swiper/dist/js/swiper.min.js"></script>
+    <script>
+    var arr = [{
+        sm: 'http://photo.tuchong.com/1137322/m/33553958.webp',
+        big: 'http://photo.tuchong.com/1137322/f/33553958.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1137322/m/192741446.webp',
+        big: 'http://photo.tuchong.com/1137322/f/192741446.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1137322/m/595787847.webp',
+        big: 'http://photo.tuchong.com/1137322/f/595787847.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/3609146/m/634323005.webp',
+        big: 'http://photo.tuchong.com/3609146/f/634323005.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/3609146/m/298319939.webp',
+        big: 'http://photo.tuchong.com/3609146/f/298319939.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/3033088/m/460783681.webp',
+        big: 'http://photo.tuchong.com/3033088/f/460783681.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/3033088/m/78774324.webp',
+        big: 'http://photo.tuchong.com/3033088/f/78774324.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/418437/m/452460611.webp',
+        big: 'http://photo.tuchong.com/418437/f/452460611.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/418437/m/529662034.webp',
+        big: 'http://photo.tuchong.com/418437/f/529662034.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/418437/m/471466056.webp',
+        big: 'http://photo.tuchong.com/418437/f/471466056.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/418437/m/632553537.webp',
+        big: 'http://photo.tuchong.com/418437/f/632553537.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/384710/m/187760653.webp',
+        big: 'http://photo.tuchong.com/384710/f/187760653.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/2328504/m/43909188.webp',
+        big: 'http://photo.tuchong.com/2328504/f/43909188.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/2328504/m/300089408.webp',
+        big: 'http://photo.tuchong.com/2328504/f/300089408.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/2328504/m/111280187.webp',
+        big: 'http://photo.tuchong.com/2328504/f/111280187.jpg'
+    }, {
+        sm: 'http:photo.tuchong.com/1554764/m/417005640.webp',
+        big: 'http://photo.tuchong.com/1554764/f/417005640.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/3405265/m/384172102.webp',
+        big: 'http://photo.tuchong.com/3405265/f/384172102.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1585512/m/418840655.webp',
+        big: 'http://photo.tuchong.com/1585512/f/418840655.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/288887/m/24505004.webp',
+        big: 'http://photo.tuchong.com/288887/f/24505004.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/2790750/m/291242062.webp',
+        big: 'http://photo.tuchong.com/2790750/f/291242062.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1325700/m/154730556.webp',
+        big: 'http://photo.tuchong.com/1325700/f/154730556.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1362858/m/22343511.webp',
+        big: 'http://photo.tuchong.com/1362858/f/22343511.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1351605/m/10677517.webp',
+        big: 'http://photo.tuchong.com/1351605/f/10677517.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/2352588/m/191758393.webp',
+        big: 'http://photo.tuchong.com/2352588/f/191758393.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/321740/m/30408230.webp',
+        big: 'http://photo.tuchong.com/321740/f/30408230.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/321740/m/77332550.webp',
+        big: 'http://photo.tuchong.com/321740/f/77332550.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/321740/m/455016522.webp',
+        big: 'http://photo.tuchong.com/321740/f/455016522.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/321740/m/320929861.webp',
+        big: 'http://photo.tuchong.com/321740/f/320929861.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/321740/m/637534278.webp',
+        big: 'http://photo.tuchong.com/321740/f/637534278.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/321740/m/249167937.webp',
+        big: 'http://photo.tuchong.com/321740/f/249167937.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/321740/m/499712054.webp',
+        big: 'http://photo.tuchong.com/321740/f/499712054.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/321740/m/36110409.webp',
+        big: 'http://photo.tuchong.com/321740/f/36110409.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/321740/m/25755197.webp',
+        big: 'http://photo.tuchong.com/321740/f/25755197.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/19201590.webp',
+        big: 'http://photo.tuchong.com/1406048/f/19201590.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/68812861.webp',
+        big: 'http://photo.tuchong.com/1406048/f/68812861.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/461504571.webp',
+        big: 'http://photo.tuchong.com/1406048/f/461504571.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/405995581.webp',
+        big: 'http://photo.tuchong.com/1406048/f/405995581.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/304873526.webp',
+        big: 'http://photo.tuchong.com/1406048/f/304873526.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/397213776.webp',
+        big: 'http://photo.tuchong.com/1406048/f/397213776.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/178061390.webp',
+        big: 'http://photo.tuchong.com/1406048/f/178061390.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/475988034.webp',
+        big: 'http://photo.tuchong.com/1406048/f/475988034.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/213712975.webp',
+        big: 'http://photo.tuchong.com/1406048/f/213712975.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/213712975.webp',
+        big: 'http://photo.tuchong.com/1406048/f/213712975.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/123863108.webp',
+        big: 'http://photo.tuchong.com/1406048/f/123863108.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/630980686.webp',
+        big: 'http://photo.tuchong.com/1406048/f/630980686.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/68878411.webp',
+        big: 'http://photo.tuchong.com/1406048/f/68878411.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/531431505.webp',
+        big: 'http://photo.tuchong.com/1406048/f/531431505.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/502530110.webp',
+        big: 'http://photo.tuchong.com/1406048/f/502530110.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/1406048/m/573112377.webp',
+        big: 'http://photo.tuchong.com/1406048/f/573112377.jpg'
+    }, {
+        sm: 'http://photo.tuchong.com/438502/m/170065983.webp',
+        big: 'http://photo.tuchong.com/438502/f/170065983.jpg'
+    }];
+    //所有小图 大图
+    $.each(arr, function(i, o) {
+        // console.log(i,o);
+        //小图
+        var oLi = $('<li>');
+        oLi.addClass('swiper-slide');
+        oLi.css({ 'background-image': 'url(' + o.sm + ')' })
+        $('.list').append(oLi);
+        //大图
+        var div = $('<div>');
+        div.addClass('swiper-slide');
+        div.html('<img src="' + o.big + '">');
+        $('.img-box').append(div);
+    })
+    //初始化图片盒子高度
+    $('.img').css({ height: $(window).height() - $('.smlist').height() - 40 })
+
+    var c = parseInt($(window).width() / 125 / 2);
+    //小图
+    var mySmlist = new Swiper('.smlist', {
+    	spaceBetween: 10,
+        loop: true, // 循环模式选项
+        slidesPerView: parseInt($(window).width() / 125),
+        loopedSlides: 5,
+        watchSlidesVisibility: true,
+        watchSlidesProgress: true,
+    })
+    //大图  关联小图，被关联的在上面
+    var myImg = new Swiper('.img', {
+        loop: true, // 循环模式选项
+        spaceBetween: 10,
+        slidesPerView: 1,
+
+        navigation: {
+            nextEl: '.next',
+            prevEl: '.prev',
+        },
+        thumbs: {
+            swiper: mySmlist,
+        },
+        on: {
+        	slideChange: function(){
+        		console.log(this.activeIndex>c, $('.list').css('transform'));
+        	}
+        }
+    })
+    </script>
+</body>
+
+</html>
